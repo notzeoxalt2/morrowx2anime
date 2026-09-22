@@ -1,0 +1,306 @@
+{
+  "name": "Morrow Anime 2 - Requested Anime Providers",
+  "version": "0.2.0",
+  "scrapers": [
+    {
+      "id": "kartoons",
+      "name": "Kartoons",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/kartoons-me.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://kartoons.me/",
+      "resolverBacked": true
+    },
+    {
+      "id": "ag48anime",
+      "name": "AG48Anime",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/ag48anime-fun.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://ag48anime.fun/",
+      "resolverBacked": true
+    },
+    {
+      "id": "watchanimeworld",
+      "name": "WatchAnimeWorld",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/watchanimeworld-one.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://watchanimeworld.one/",
+      "resolverBacked": true
+    },
+    {
+      "id": "animejoker",
+      "name": "AnimeJoker",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/animejoker-com.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://animejoker.com/",
+      "resolverBacked": true
+    },
+    {
+      "id": "subdubanime",
+      "name": "SubDubAnime",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/subdubanime-site.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://subdubanime.site/",
+      "resolverBacked": true
+    },
+    {
+      "id": "anime4u",
+      "name": "Anime4u",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/anime4u-site.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://anime4u.site/",
+      "resolverBacked": true
+    },
+    {
+      "id": "animedrive",
+      "name": "AnimeDrive",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/animedrive-me.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://animedrive.me/",
+      "resolverBacked": true
+    },
+    {
+      "id": "toonworld4all",
+      "name": "ToonWorld4All",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/toonworld4all-me.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://toonworld4all.me/",
+      "resolverBacked": true
+    },
+    {
+      "id": "desidubanime",
+      "name": "DesiDubAnime",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/desidubanime-me.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://desidubanime.me/",
+      "resolverBacked": true
+    },
+    {
+      "id": "animedekho",
+      "name": "AnimeDekho",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/animedekho-app.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://animedekho.app/",
+      "resolverBacked": true
+    },
+    {
+      "id": "animelok",
+      "name": "AnimeLok",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/animelok-live.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://animelok.live/",
+      "resolverBacked": true
+    },
+    {
+      "id": "animesalt",
+      "name": "AnimeSalt",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/animesalt-me.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://animesalt.me/",
+      "resolverBacked": true
+    },
+    {
+      "id": "animepahe",
+      "name": "AnimePahe",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/animepahe-pw.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://animepahe.pw/",
+      "resolverBacked": true
+    },
+    {
+      "id": "rareanimes",
+      "name": "RareAnimes",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/rareanimes-mov.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://rareanimes.mov/",
+      "resolverBacked": true
+    },
+    {
+      "id": "animesogo",
+      "name": "AnimeSogo",
+      "description": "Resolver-backed requested anime site adapter",
+      "version": "1.0.0",
+      "author": "Morrow",
+      "supportedTypes": [
+        "movie",
+        "tv"
+      ],
+      "filename": "providers/animesogo-to.js",
+      "enabled": true,
+      "formats": [
+        "mp4",
+        "m3u8",
+        "mpd"
+      ],
+      "sourceSite": "https://animesogo.to/",
+      "resolverBacked": true
+    }
+  ]
+}
