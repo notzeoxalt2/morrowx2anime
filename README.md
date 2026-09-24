@@ -10,6 +10,10 @@ The requested anime adapters use the existing resolver-backed implementation so 
 
 The resolver cache deduplicates concurrent requests and keeps the server roster and extracted streams warm for five minutes, avoiding the same request once for every enabled alias.
 
+Movix is included as a verified HLS fallback for movie, TV, and anime TMDB IDs.
+
 Use Naruto TMDB ID `46260` for validation. TMDB ID `20` is not Naruto and is not a valid anime smoke-test input.
 
 `Manga 1` was supplied without a domain, so it is not included as a provider entry.
+
+GitHub raw manifest: https://raw.githubusercontent.com/notzeoxalt2/morrowx2anime/main/manifest.json

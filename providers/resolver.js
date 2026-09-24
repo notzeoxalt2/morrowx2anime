@@ -54,8 +54,13 @@ const DEFAULT_SERVERS = {
   ]
 };
 
-const cache = new Map();
-const pending = new Map();
+const resolverRoot = typeof globalThis !== "undefined" ? globalThis : global;
+const resolverState = resolverRoot.__morrowAnimeResolverState || {
+  cache: new Map(),
+  pending: new Map()
+};
+resolverRoot.__morrowAnimeResolverState = resolverState;
+const { cache, pending } = resolverState;
 
 function normalized(value) {
   return String(value || "")
@@ -254,10 +259,11 @@ async function allServerStreams(animeId, episode, servers) {
     const requestKey = `${server.language}:${server.id}`;
     if (!sourceRequests.has(requestKey)) {
       const type = server.language === "DUB" ? "dub" : "sub";
-      sourceRequests.set(requestKey,
+      sourceRequests.set(
+        requestKey,
         `${STREAM_BASE}/sources?id=${encodeURIComponent(animeId)}` +
-        `&epNum=${encodeURIComponent(episode)}&type=${type}` +
-        `&providerId=${encodeURIComponent(server.id)}`
+          `&epNum=${encodeURIComponent(episode)}&type=${type}` +
+          `&providerId=${encodeURIComponent(server.id)}`
       );
     }
   }
@@ -266,7 +272,12 @@ async function allServerStreams(animeId, episode, servers) {
     const batch = await Promise.allSettled(
       unique.slice(index, index + 2).map(async (server) => ({
         server,
-        data: await retryJson(sourceRequests.get(`${server.language}:${server.id}`), {}, 4500, 1)
+        data: await retryJson(
+          sourceRequests.get(`${server.language}:${server.id}`),
+          {},
+          4500,
+          1
+        )
       }))
     );
     responses.push(...batch);
