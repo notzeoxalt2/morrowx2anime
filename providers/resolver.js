@@ -3,7 +3,7 @@
  *
  * The listed domains expose different frontends and rotate frequently. The
  * shared anime resolver returns the current server roster for those sites;
- * this adapter requests every SUB and DUB server concurrently and keeps
+ * this adapter requests SUB and DUB servers in small batches and keeps
  * successful results when an individual host is unavailable.
  */
 
@@ -251,16 +251,27 @@ async function allServerStreams(animeId, episode, servers) {
 
   const sourceRequests = new Map();
   for (const server of unique) {
-    if (!sourceRequests.has(server.id)) {
-      const url =
+    const requestKey = `${server.language}:${server.id}`;
+    if (!sourceRequests.has(requestKey)) {
+      const type = server.language === "DUB" ? "dub" : "sub";
+      sourceRequests.set(requestKey,
         `${STREAM_BASE}/sources?id=${encodeURIComponent(animeId)}` +
-        `&epNum=${encodeURIComponent(episode)}&providerId=${encodeURIComponent(server.id)}`;
-        sourceRequests.set(server.id, retryJson(url, {}, 4500, 1));
+        `&epNum=${encodeURIComponent(episode)}&type=${type}` +
+        `&providerId=${encodeURIComponent(server.id)}`
+      );
     }
   }
-  const responses = await Promise.allSettled(
-    unique.map(async (server) => ({ server, data: await sourceRequests.get(server.id) }))
-  );
+  const responses = [];
+  for (let index = 0; index < unique.length; index += 2) {
+    const batch = await Promise.allSettled(
+      unique.slice(index, index + 2).map(async (server) => ({
+        server,
+        data: await retryJson(sourceRequests.get(`${server.language}:${server.id}`), {}, 4500, 1)
+      }))
+    );
+    responses.push(...batch);
+    if (index + 2 < unique.length) await new Promise((resolve) => setTimeout(resolve, 200));
+  }
 
   const streams = [];
   const seenUrls = new Set();
