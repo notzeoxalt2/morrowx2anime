@@ -1,85 +1,68 @@
 {
-  "name": "Morrow Anime 2 - Regional & Dub",
+  "name": "Morrow Anime Providers 2",
   "version": "1.2.0",
-  "description": "Verified standalone working providers for Morrow Anime 2 - Regional & Dub",
+  "description": "Verified standalone working providers for Morrow Anime Providers 2",
   "scrapers": [
     {
-      "id": "vidnest-anime",
-      "name": "VidnestAnime",
-      "description": "Vidnest anime streaming with TMDB→AniList mapping and 5 servers (hindi, satoru, miko, pahe, anya)",
-      "version": "1.0.0",
-      "author": "Nuvio Team",
+      "id": "animedekho",
+      "name": "AnimeDekho",
+      "description": "AnimeDekho standalone high-speed anime scraper",
+      "version": "1.2.0",
+      "author": "Morrow",
+      "filename": "providers/animedekho.js",
       "supportedTypes": [
         "movie",
         "tv",
         "anime"
       ],
-      "filename": "providers/vidnest-anime.js",
       "enabled": true,
+      "hasSettings": false,
       "formats": [
+        "mp4",
         "m3u8"
       ],
-      "logo": "https://vidnest.fun/favicon.ico",
       "contentLanguage": [
         "en",
-        "hi",
         "ja"
-      ],
-      "limited": true,
-      "notes": "Automatically maps TMDB IDs to AniList. Supports sub/dub."
+      ]
     },
     {
-      "id": "animelok",
-      "name": "AnimeLok",
-      "description": "Resolver-backed requested anime site adapter",
-      "version": "1.0.0",
+      "id": "anime-nexus",
+      "name": "Anime Nexus",
+      "description": "Anime Nexus standalone high-speed anime scraper",
+      "version": "1.2.0",
       "author": "Morrow",
+      "filename": "providers/anime-nexus.js",
       "supportedTypes": [
         "movie",
         "tv",
         "anime"
       ],
-      "filename": "providers/animelok.js",
       "enabled": true,
+      "hasSettings": false,
       "formats": [
         "mp4",
-        "m3u8",
-        "mpd"
+        "m3u8"
       ],
-      "sourceSite": "https://animelok.live/",
-      "resolverBacked": true
+      "contentLanguage": [
+        "en",
+        "ja"
+      ]
     },
     {
-      "id": "toonhub",
-      "name": "ToonHub",
-      "description": "ToonHub provider for Nuvio (Animes & Cartoons)",
-      "version": "1.0.0",
-      "author": "User",
+      "id": "animetvplus",
+      "name": "animeTVplus",
+      "description": "animeTVplus standalone high-speed anime scraper",
+      "version": "1.2.0",
+      "author": "Morrow",
+      "filename": "providers/animetvplus.js",
       "supportedTypes": [
         "movie",
         "tv",
         "anime"
       ],
-      "filename": "providers/toonhub.js",
       "enabled": true,
-      "logo": "https://toonhub4u.co/wp-content/uploads/2024/02/Untitled.png",
-      "contentLanguage": [
-        "hi",
-        "en"
-      ],
-      "supportsExternalPlayer": true
-    },
-    {
-      "id": "anime-dekho",
-      "name": "ANIME-DEKHO",
-      "description": "anime-dekho standalone anime scraper",
-      "version": "1.0.0",
-      "author": "Morrow",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
+      "hasSettings": false,
       "formats": [
         "mp4",
         "m3u8"
@@ -87,119 +70,167 @@
       "contentLanguage": [
         "en",
         "ja"
-      ],
-      "filename": "providers/anime-dekho.js",
-      "enabled": true
+      ]
     },
     {
-      "id": "animedubhindi",
-      "name": "ANIMEDUBHINDI",
-      "description": "animedubhindi standalone anime scraper",
-      "version": "1.0.0",
+      "id": "animex",
+      "name": "AnimeX",
+      "description": "AnimeX standalone high-speed anime scraper",
+      "version": "1.2.0",
       "author": "Morrow",
+      "filename": "providers/animex.js",
       "supportedTypes": [
         "movie",
         "tv",
         "anime"
       ],
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ],
-      "filename": "providers/animedubhindi.js",
-      "enabled": true
-    },
-    {
-      "id": "animekhor",
-      "name": "ANIMEKHOR",
-      "description": "animekhor standalone anime scraper",
-      "version": "1.0.0",
-      "author": "Morrow",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ],
-      "filename": "providers/animekhor.js",
-      "enabled": true
-    },
-    {
-      "id": "animecloud",
-      "name": "ANIMECLOUD",
-      "description": "animecloud standalone anime scraper",
-      "version": "1.0.0",
-      "author": "Morrow",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ],
-      "filename": "providers/animecloud.js",
-      "enabled": true
-    },
-    {
-      "id": "latanime",
-      "name": "LATANIME",
-      "description": "latanime standalone anime scraper",
-      "version": "1.0.0",
-      "author": "Morrow",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ],
-      "filename": "providers/latanime.js",
-      "enabled": true
-    },
-    {
-      "id": "anime-sama",
-      "name": "🐍 Anime-Sama",
-      "description": "Watch AnimeSama France",
-      "version": "1.1.27",
-      "author": "Gowaru",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "filename": "providers/anime-sama.js",
       "enabled": true,
-      "hasSettings": true,
+      "hasSettings": false,
       "formats": [
         "mp4",
-        "mkv"
+        "m3u8"
       ],
-      "logo": "https://i.postimg.cc/tgYt2pYG/animesama.png",
       "contentLanguage": [
-        "fr"
+        "en",
+        "ja"
+      ]
+    },
+    {
+      "id": "anistream",
+      "name": "Anistream",
+      "description": "Anistream standalone high-speed anime scraper",
+      "version": "1.2.0",
+      "author": "Morrow",
+      "filename": "providers/anistream.js",
+      "supportedTypes": [
+        "movie",
+        "tv",
+        "anime"
+      ],
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "mp4",
+        "m3u8"
+      ],
+      "contentLanguage": [
+        "en",
+        "ja"
+      ]
+    },
+    {
+      "id": "enma",
+      "name": "Enma",
+      "description": "Enma standalone high-speed anime scraper",
+      "version": "1.2.0",
+      "author": "Morrow",
+      "filename": "providers/enma.js",
+      "supportedTypes": [
+        "movie",
+        "tv",
+        "anime"
+      ],
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "mp4",
+        "m3u8"
+      ],
+      "contentLanguage": [
+        "en",
+        "ja"
+      ]
+    },
+    {
+      "id": "justanime",
+      "name": "JustAnime",
+      "description": "JustAnime standalone high-speed anime scraper",
+      "version": "1.2.0",
+      "author": "Morrow",
+      "filename": "providers/justanime.js",
+      "supportedTypes": [
+        "movie",
+        "tv",
+        "anime"
+      ],
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "mp4",
+        "m3u8"
+      ],
+      "contentLanguage": [
+        "en",
+        "ja"
+      ]
+    },
+    {
+      "id": "kaa",
+      "name": "Kaa",
+      "description": "Kaa standalone high-speed anime scraper",
+      "version": "1.2.0",
+      "author": "Morrow",
+      "filename": "providers/kaa.js",
+      "supportedTypes": [
+        "movie",
+        "tv",
+        "anime"
+      ],
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "mp4",
+        "m3u8"
+      ],
+      "contentLanguage": [
+        "en",
+        "ja"
+      ]
+    },
+    {
+      "id": "lunarx",
+      "name": "LunarX",
+      "description": "LunarX standalone high-speed anime scraper",
+      "version": "1.2.0",
+      "author": "Morrow",
+      "filename": "providers/lunarx.js",
+      "supportedTypes": [
+        "movie",
+        "tv",
+        "anime"
+      ],
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "mp4",
+        "m3u8"
+      ],
+      "contentLanguage": [
+        "en",
+        "ja"
+      ]
+    },
+    {
+      "id": "saltanime",
+      "name": "SaltAnime",
+      "description": "SaltAnime standalone high-speed anime scraper",
+      "version": "1.2.0",
+      "author": "Morrow",
+      "filename": "providers/saltanime.js",
+      "supportedTypes": [
+        "movie",
+        "tv",
+        "anime"
+      ],
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "mp4",
+        "m3u8"
+      ],
+      "contentLanguage": [
+        "en",
+        "ja"
       ]
     }
   ]
