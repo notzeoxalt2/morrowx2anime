@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Morrow Standalone Anime Scraper: SaltAnime
  * Source Site: https://SaltAnime.cx/
  * Real Multi-Language Player Integration (English Dub, Japanese Sub, Hindi, Tamil, Telugu)

@@ -1,13 +1,13 @@
-﻿{
+{
   "name": "Morrow Anime 2",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Verified standalone working anime providers for Morrow Anime 2",
   "scrapers": [
     {
       "id": "animedekho",
       "name": "AnimeDekho",
       "description": "AnimeDekho standalone high-speed anime scraper",
-      "version": "1.6.0",
+      "version": "1.6.1",
       "author": "Morrow Team",
       "supportedTypes": [
         "anime",
@@ -31,7 +31,7 @@
       "id": "anime-nexus",
       "name": "Anime Nexus",
       "description": "Anime Nexus standalone high-speed anime scraper",
-      "version": "1.6.0",
+      "version": "1.6.1",
       "author": "Morrow Team",
       "supportedTypes": [
         "anime",
@@ -55,7 +55,7 @@
       "id": "lunarx",
       "name": "LunarX",
       "description": "LunarX standalone high-speed anime scraper",
-      "version": "1.6.0",
+      "version": "1.6.1",
       "author": "Morrow Team",
       "supportedTypes": [
         "anime",
@@ -79,7 +79,7 @@
       "id": "saltanime",
       "name": "SaltAnime",
       "description": "SaltAnime standalone high-speed anime scraper",
-      "version": "1.6.0",
+      "version": "1.6.1",
       "author": "Morrow Team",
       "supportedTypes": [
         "anime",

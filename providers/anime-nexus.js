@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Standalone Bundled Scraper: Anime Nexus
  * Source Site: https://anime.nexus/
  * API: anidap.lol / chad.anidap.lol

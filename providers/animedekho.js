@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Standalone Bundled Scraper: AnimeDekho
  * Source Site: https://animedekho.app/
  * API: anidap.lol / chad.anidap.lol

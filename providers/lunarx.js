@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Standalone Bundled Scraper: LunarX
  * Source Site: https://lunarx.to/
  * API: anidap.lol / chad.anidap.lol
