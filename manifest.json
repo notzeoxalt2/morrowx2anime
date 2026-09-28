@@ -1,18 +1,16 @@
 {
   "name": "Morrow Anime 2",
-  "version": "1.6.1",
+  "version": "1.6.3",
   "description": "Verified standalone working anime providers for Morrow Anime 2",
   "scrapers": [
     {
       "id": "animedekho",
       "name": "AnimeDekho",
       "description": "AnimeDekho standalone high-speed anime scraper",
-      "version": "1.6.1",
+      "version": "1.6.3",
       "author": "Morrow Team",
       "supportedTypes": [
-        "anime",
-        "tv",
-        "movie"
+        "anime"
       ],
       "filename": "providers/animedekho.js",
       "enabled": true,
@@ -31,12 +29,10 @@
       "id": "anime-nexus",
       "name": "Anime Nexus",
       "description": "Anime Nexus standalone high-speed anime scraper",
-      "version": "1.6.1",
+      "version": "1.6.3",
       "author": "Morrow Team",
       "supportedTypes": [
-        "anime",
-        "tv",
-        "movie"
+        "anime"
       ],
       "filename": "providers/anime-nexus.js",
       "enabled": true,
@@ -55,12 +51,10 @@
       "id": "lunarx",
       "name": "LunarX",
       "description": "LunarX standalone high-speed anime scraper",
-      "version": "1.6.1",
+      "version": "1.6.3",
       "author": "Morrow Team",
       "supportedTypes": [
-        "anime",
-        "tv",
-        "movie"
+        "anime"
       ],
       "filename": "providers/lunarx.js",
       "enabled": true,
@@ -79,12 +73,10 @@
       "id": "saltanime",
       "name": "SaltAnime",
       "description": "SaltAnime standalone high-speed anime scraper",
-      "version": "1.6.1",
+      "version": "1.6.3",
       "author": "Morrow Team",
       "supportedTypes": [
-        "anime",
-        "tv",
-        "movie"
+        "anime"
       ],
       "filename": "providers/saltanime.js",
       "enabled": true,
