@@ -1,6 +1,7 @@
-/**
+﻿/**
  * Standalone Bundled Scraper: LunarX
  * Source Site: https://lunarx.to/
+ * API: anidap.lol / chad.anidap.lol
  */
 if (typeof setTimeout === 'undefined') {
     globalThis.setTimeout = function(fn) { try { fn(); } catch(e) {} return 1; };
@@ -9,15 +10,6 @@ if (typeof clearTimeout === 'undefined') {
     globalThis.clearTimeout = function() {};
 }
 
-/*
- * Requested-sites-only Nuvio provider.
- *
- * The listed domains expose different frontends and rotate frequently. The
- * shared anime resolver returns the current server roster for those sites;
- * this adapter requests every SUB and DUB server concurrently and keeps
- * successful results when an individual host is unavailable.
- */
-
 const TMDB_API_KEY = "439c478a771f35c05022f9feabcca01c";
 const TMDB_BASE = "https://api.themoviedb.org/3";
 const RESOLVER_BASE = "https://anidap.lol";
@@ -25,48 +17,20 @@ const STREAM_BASE = "https://chad.anidap.lol/rest/api";
 const USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36";
 
-const REQUESTED_SITES = [
-  "https://animesalt.cx/",
-  "https://saltanime.in/",
-  "https://animedekho.app/",
-  "https://hianime.at/home",
-  "https://anikage.cc/",
-  "https://www.miruro.to/",
-  "https://reanime.to/home",
-  "https://animepahe.pw/",
-  "https://anikototv.to/",
-  "https://www.enma.lol/",
-  "https://anime.nexus/",
-  "https://anidb.app/home",
-  "https://anidap.lol/",
-  "https://animex.one/home",
-  "https://animetvplus.xyz/",
-  "https://anistream.one/",
-  "https://kaa.lt/",
-  "https://justanime.to/",
-  "https://aniwaves.ru/",
-  "https://animeheaven.me/",
-  "https://anitaku.io/",
-  "https://lunarx.to/"
-];
-
-const cache = new Map();
-const pending = new Map();
-
+// Working server IDs confirmed from chad.anidap.lol
 const DEFAULT_SERVERS = {
   subProviders: [
-    { id: "beep", default: true, tip: "Soft sub, Fast" },
-    { id: "yuki", default: false, tip: "Soft sub, Good, Multi quality" },
-    { id: "zuna", default: false, tip: "Soft sub, Fast, High quality" },
-    { id: "loli", default: false, tip: "Hard sub, Fast" },
+    { id: "zuna", default: true, tip: "Soft sub, Fast, High quality" },
     { id: "sora", default: false, tip: "Soft sub, Fast, High quality" }
   ],
   dubProviders: [
-    { id: "yuki", default: true, tip: "Soft sub, Good, Multi quality" },
-    { id: "loli", default: false, tip: "Hard sub, Fast" },
-    { id: "sora", default: false, tip: "Soft sub, Fast, High quality" }
+    { id: "sora", default: true, tip: "Soft sub, Fast, High quality" },
+    { id: "zuna", default: false, tip: "Soft sub, Fast, High quality" }
   ]
 };
+
+const cache = new Map();
+const pending = new Map();
 
 function normalized(value) {
   return String(value || "")
@@ -89,9 +53,7 @@ function titles(result) {
   return [title, result && result.name].filter(Boolean);
 }
 
-async function json(url, options = {}, timeout = 9000) {
-  const controller = typeof AbortController === "function" ? new AbortController() : null;
-  const timer = controller ? setTimeout(() => controller.abort(), timeout) : null;
+async function jsonFetch(url, options = {}, timeout = 9000) {
   const headers = {
     Accept: "application/json, text/plain, */*",
     "User-Agent": USER_AGENT,
@@ -101,28 +63,18 @@ async function json(url, options = {}, timeout = 9000) {
     headers.Origin = RESOLVER_BASE;
     headers.Referer = `${RESOLVER_BASE}/`;
   }
-
-  try {
-    const response = await fetch(url, {
-      ...options,
-      signal: controller ? controller.signal : undefined,
-      headers
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
-    return await response.json();
-  } finally {
-    if (timer) clearTimeout(timer);
-  }
+  const response = await fetch(url, { ...options, headers });
+  if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
+  return await response.json();
 }
 
-async function retryJson(url, options = {}, timeout = 9000, attempts = 2) {
+async function retryJsonFetch(url, options = {}, timeout = 9000, attempts = 2) {
   let lastError;
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     try {
-      return await json(url, options, timeout);
+      return await jsonFetch(url, options, timeout);
     } catch (error) {
       lastError = error;
-      if (attempt + 1 < attempts) await new Promise((resolve) => setTimeout(resolve, 150));
     }
   }
   throw lastError;
@@ -145,16 +97,26 @@ async function cached(key, task, ttl = 300000) {
 
 async function tmdbInfo(id, type, season) {
   const mediaType = type === "movie" ? "movie" : "tv";
-  const details = await json(
+  // Handle IMDb IDs
+  if (String(id).startsWith("tt")) {
+    const findData = await jsonFetch(
+      `${TMDB_BASE}/find/${encodeURIComponent(id)}?api_key=${TMDB_API_KEY}&external_source=imdb_id`
+    );
+    const match = (findData.tv_results && findData.tv_results[0]) ||
+                  (findData.movie_results && findData.movie_results[0]);
+    if (!match) throw new Error(`TMDB find failed for ${id}`);
+    const mainTitle = match.name || match.title || match.original_name || "";
+    return { title: mainTitle, searchTitles: [mainTitle], year: (match.first_air_date || match.release_date || "").slice(0, 4) };
+  }
+  const details = await jsonFetch(
     `${TMDB_BASE}/${mediaType}/${encodeURIComponent(id)}?api_key=${TMDB_API_KEY}`
   );
   const mainTitle = details.title || details.name || details.original_title || details.original_name || "";
   const searchTitles = [mainTitle, details.original_title, details.original_name].filter(Boolean);
   let year = (details.release_date || details.first_air_date || "").slice(0, 4);
-
   if (mediaType === "tv" && Number(season) > 0) {
     try {
-      const seasonData = await json(
+      const seasonData = await jsonFetch(
         `${TMDB_BASE}/tv/${encodeURIComponent(id)}/season/${encodeURIComponent(season)}?api_key=${TMDB_API_KEY}`
       );
       if (seasonData.name) searchTitles.unshift(seasonData.name);
@@ -166,7 +128,6 @@ async function tmdbInfo(id, type, season) {
       if (Number(season) > 1) searchTitles.push(`${mainTitle} Season ${season}`, `${mainTitle} S${season}`);
     }
   }
-
   return { title: mainTitle, searchTitles: [...new Set(searchTitles)], year };
 }
 
@@ -182,7 +143,6 @@ function score(result, queries, year, mediaType) {
       value = Math.max(value, words(query).filter((word) => resultTitle.includes(word)).length * 18);
     }
   }
-
   const resultYear = Number(result && result.releaseDate);
   if (year && resultYear) {
     const difference = Math.abs(Number(year) - resultYear);
@@ -197,17 +157,16 @@ function score(result, queries, year, mediaType) {
 }
 
 async function resolveAnime(info, mediaType) {
-  const queries = info.searchTitles.slice(0, 6);
+  const queries = info.searchTitles.slice(0, 4);
   const responses = await Promise.allSettled(
     queries.map((query) =>
       cached(`search:${normalized(query)}`, () =>
-        json(`${RESOLVER_BASE}/api/anime/search?q=${encodeURIComponent(query)}`, {}, 5000)
+        jsonFetch(`${RESOLVER_BASE}/api/anime/search?q=${encodeURIComponent(query)}`, {}, 5000)
       )
     )
   );
   const candidates = [];
   const seen = new Set();
-
   for (const response of responses) {
     if (response.status !== "fulfilled") continue;
     const results = response.value && response.value.results;
@@ -230,7 +189,7 @@ function cleanTrack(url) {
 function streamType(source) {
   const type = String((source && (source.type || source.mimeType)) || "").toLowerCase();
   const url = String((source && source.url) || "").toLowerCase();
-  if (type.includes("mpegurl") || url.includes(".m3u8")) return "m3u8";
+  if (type.includes("mpegurl") || url.includes(".m3u8")) return "hls";
   if (type.includes("mpd") || url.includes(".mpd")) return "mpd";
   return "mp4";
 }
@@ -242,74 +201,60 @@ function quality(source) {
 }
 
 async function allServerStreams(animeId, episode, servers) {
-  const serverGroups = [
-    ...(Array.isArray(servers && servers.subProviders)
-      ? servers.subProviders.map((server) => ({ ...server, language: "SUB" }))
-      : []),
-    ...(Array.isArray(servers && servers.dubProviders)
-      ? servers.dubProviders.map((server) => ({ ...server, language: "DUB" }))
-      : [])
-  ];
+  const subServers = (Array.isArray(servers && servers.subProviders) ? servers.subProviders : [])
+    .map((s) => ({ ...s, language: "SUB", isDub: false }));
+  const dubServers = (Array.isArray(servers && servers.dubProviders) ? servers.dubProviders : [])
+    .map((s) => ({ ...s, language: "DUB", isDub: true }));
+
+  const allServers = [...subServers, ...dubServers];
+  const seenKeys = new Set();
   const unique = [];
-  const seenServers = new Set();
-  for (const server of serverGroups) {
-    const id = String((server && server.id) || "");
-    const key = `${server.language}:${id}`;
-    if (!id || seenServers.has(key)) continue;
-    seenServers.add(key);
-    unique.push({ id, language: server.language, tip: server.tip || "" });
+  for (const server of allServers) {
+    const key = `${server.language}:${server.id}`;
+    if (!server.id || seenKeys.has(key)) continue;
+    seenKeys.add(key);
+    unique.push(server);
   }
 
-  const sourceRequests = new Map();
-  for (const server of unique) {
-    if (!sourceRequests.has(server.id)) {
-      const url =
-        `${STREAM_BASE}/sources?id=${encodeURIComponent(animeId)}` +
-        `&epNum=${encodeURIComponent(episode)}&providerId=${encodeURIComponent(server.id)}`;
-      sourceRequests.set(server.id, retryJson(url, {}, 4500, 1));
-    }
-  }
-  const responses = await Promise.allSettled(
-    unique.map(async (server) => ({ server, data: await sourceRequests.get(server.id) }))
+  const results = await Promise.allSettled(
+    unique.map(async (server) => {
+      const isDubParam = server.isDub ? "&isDub=true" : "";
+      const url = `${STREAM_BASE}/sources?id=${encodeURIComponent(animeId)}&epNum=${encodeURIComponent(episode)}&providerId=${encodeURIComponent(server.id)}${isDubParam}`;
+      const data = await retryJsonFetch(url, {}, 5000, 1);
+      return { server, data };
+    })
   );
 
   const streams = [];
   const seenUrls = new Set();
-  for (const response of responses) {
-    if (response.status !== "fulfilled") continue;
-    const { server, data } = response.value;
+  for (const result of results) {
+    if (result.status !== "fulfilled") continue;
+    const { server, data } = result.value;
     const sources = Array.isArray(data && data.sources) ? data.sources : [];
     for (const source of sources) {
       const url = String((source && source.url) || "");
       const key = `${server.language}:${url}`;
       if (!url || seenUrls.has(key)) continue;
       seenUrls.add(key);
+      const q = quality(source);
+      const isDub = server.language === "DUB";
+      const serverName = String(server.id || "").toUpperCase();
       streams.push({
-        name: `Server ${String(server.id || 'Yuki').toUpperCase()} [${server.language}]`,
-        serverId: String(server.id || 'Yuki').toUpperCase(),
-        language: server.language,
-        tip: server.tip || "",
-        title: `⚡ ${quality(source)} | ${server.language === 'DUB' ? '🗣️ English Dub' : '💬 Japanese [Eng Sub]'} | 📺 ${server.tip || server.id}`,
+        name: `Server ${serverName} [${server.language}] â€¢ ${q}`,
+        title: `âš¡ ${q} | ${isDub ? "ðŸ—£ï¸ English Dub" : "ðŸ’¬ Japanese Sub"} | ðŸ“º Server ${serverName}`,
         url,
-        quality: quality(source),
+        quality: q,
+        language: isDub ? "en" : "ja",
         type: streamType(source),
-        behaviorHints: {
-          notWebReady: true,
-          proxyHeaders: {
-            request: data.headers || source.headers || {
-              'Origin': 'https://megaplay.buzz',
-              'Referer': 'https://megaplay.buzz/'
-            }
-          }
-        },
+        headers: data.headers || source.headers || {},
         subtitles: Array.isArray(data.tracks)
-          ? data.tracks.map((track) => ({ url: cleanTrack(track.url), language: track.lang || track.language || 'en', name: track.label || track.name || track.lang || 'English' })).filter((track) => track.url)
+          ? data.tracks.map((track) => ({
+              url: cleanTrack(track.url),
+              language: track.lang || track.language || "en",
+              name: track.label || track.name || track.lang || "English"
+            })).filter((track) => track.url)
           : [],
-        externalSubtitles: Array.isArray(data.tracks)
-          ? data.tracks.map((track) => ({ url: cleanTrack(track.url), language: track.lang || track.language || 'en', name: track.label || track.name || track.lang || 'English' })).filter((track) => track.url)
-          : [],
-        chapters: Array.isArray(data.chapters) ? data.chapters : [],
-        provider: "requested-anime-sites"
+        provider: "anidap-resolver"
       });
     }
   }
@@ -330,7 +275,7 @@ async function getStreams(tmdbId, mediaType = "tv", season = 1, episode = 1) {
 
     const details = await cached(
       `detail:${match.id}`,
-      () => json(`${RESOLVER_BASE}/api/anime/${encodeURIComponent(match.id)}`, {}, 5000),
+      () => jsonFetch(`${RESOLVER_BASE}/api/anime/${encodeURIComponent(match.id)}`, {}, 5000),
       300000
     );
     const animeId = details && details.data && details.data.id;
@@ -340,7 +285,7 @@ async function getStreams(tmdbId, mediaType = "tv", season = 1, episode = 1) {
     try {
       servers = await cached(
         `servers:${animeId}:${safeEpisode}`,
-        () => json(`${STREAM_BASE}/servers?id=${encodeURIComponent(animeId)}&epNum=${safeEpisode}`, {}, 5000),
+        () => jsonFetch(`${STREAM_BASE}/servers?id=${encodeURIComponent(animeId)}&epNum=${safeEpisode}`, {}, 5000),
         300000
       );
     } catch (_) {
@@ -352,13 +297,12 @@ async function getStreams(tmdbId, mediaType = "tv", season = 1, episode = 1) {
       300000
     );
   } catch (error) {
-    console.error(`[Requested Anime Sites] ${error.message}`);
+    console.error(`[LunarX] ${error && error.message ? error.message : error}`);
     return [];
   }
 }
 
 function providerForSite(name, url) {
-  const providerId = normalized(name).replace(/\s+/g, "-");
   return {
     async getStreams(...args) {
       const streams = await getStreams(...args);
@@ -366,15 +310,12 @@ function providerForSite(name, url) {
         ...stream,
         name: `${name} | ${stream.name}`,
         title: `${stream.title} | ${name}`,
-        provider: providerId,
-        sourceSite: url,
-        resolverBacked: true
+        sourceSite: url
       }));
     }
   };
 }
 
-
-
-
 module.exports = providerForSite("LunarX", "https://lunarx.to/");
+globalThis.getStreams = getStreams;
+

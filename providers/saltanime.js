@@ -1,6 +1,6 @@
-/**
+﻿/**
  * Morrow Standalone Anime Scraper: SaltAnime
- * Source Site: https://saltanime.in/ & https://animesalt.cx/
+ * Source Site: https://SaltAnime.cx/
  * Real Multi-Language Player Integration (English Dub, Japanese Sub, Hindi, Tamil, Telugu)
  */
 
@@ -34,7 +34,7 @@ async function getStreams(tmdbId, mediaType = "tv", season = 1, episode = 1) {
     if (!queryTitle) return [];
     const cleanTitle = queryTitle.trim();
 
-    const searchRes = await fetch(`https://animesalt.cx/?s=${encodeURIComponent(cleanTitle)}`, {
+    const searchRes = await fetch(`https://SaltAnime.cx/?s=${encodeURIComponent(cleanTitle)}`, {
       headers: {
         'User-Agent': USER_AGENT,
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -42,7 +42,7 @@ async function getStreams(tmdbId, mediaType = "tv", season = 1, episode = 1) {
     });
     if (!searchRes.ok) return [];
     const searchHtml = await searchRes.text();
-    const seriesMatches = [...searchHtml.matchAll(/href="(https:\/\/animesalt\.cx\/(?:series|anime)\/([^"/]+)\/)"/gi)];
+    const seriesMatches = [...searchHtml.matchAll(/href="(https:\/\/SaltAnime\.cx\/(?:series|anime)\/([^"/]+)\/)"/gi)];
     if (!seriesMatches.length) return [];
 
     const normTitle = cleanTitle.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -57,9 +57,9 @@ async function getStreams(tmdbId, mediaType = "tv", season = 1, episode = 1) {
     }
 
     const candidateUrls = [
-      `https://animesalt.cx/episode/${bestSlug}-${safeSeason}x${safeEpisode}/`,
-      `https://animesalt.cx/episode/${bestSlug}-1x${safeEpisode}/`,
-      `https://animesalt.cx/episode/${bestSlug}-episode-${safeEpisode}/`
+      `https://SaltAnime.cx/episode/${bestSlug}-${safeSeason}x${safeEpisode}/`,
+      `https://SaltAnime.cx/episode/${bestSlug}-1x${safeEpisode}/`,
+      `https://SaltAnime.cx/episode/${bestSlug}-episode-${safeEpisode}/`
     ];
 
     let epHtml = null;
@@ -68,7 +68,7 @@ async function getStreams(tmdbId, mediaType = "tv", season = 1, episode = 1) {
         const res = await fetch(epUrl, {
           headers: {
             'User-Agent': USER_AGENT,
-            'Referer': `https://animesalt.cx/series/${bestSlug}/`
+            'Referer': `https://SaltAnime.cx/series/${bestSlug}/`
           }
         });
         if (res.ok) {
@@ -101,18 +101,18 @@ async function getStreams(tmdbId, mediaType = "tv", season = 1, episode = 1) {
                            lang.toLowerCase() === 'tamil' ? 'ta' :
                            lang.toLowerCase() === 'telugu' ? 'te' : 'und';
           const tag = isDub ? `[${lang} Dub]` : `[${lang} Sub]`;
-          const langDisplay = isDub ? `🗣️ ${lang} Dub` : `🇯🇵 Japanese Sub`;
+          const langDisplay = isDub ? `ðŸ—£ï¸ ${lang} Dub` : `ðŸ‡¯ðŸ‡µ Japanese Sub`;
 
           streams.push({
             name: `Multi-Lang ${tag}`,
-            title: `SaltAnime • Multi-Lang Player ${tag} | ${langDisplay}`,
+            title: `SaltAnime â€¢ Multi-Lang Player ${tag} | ${langDisplay}`,
             url: link,
             quality: '1080p',
             language: langCode,
-            type: isDub ? 'dub' : 'sub',
+            type: 'hls',
             provider: 'SaltAnime',
             headers: {
-              'Referer': 'https://saltanime.in/',
+              'Referer': 'https://SaltAnime.cx/',
               'User-Agent': USER_AGENT
             }
           });
@@ -131,3 +131,4 @@ module.exports = {
   getStreams
 };
 globalThis.getStreams = getStreams;
+

@@ -1,13 +1,85 @@
-{
+﻿{
   "name": "Morrow Anime 2",
-  "version": "1.4.0",
+  "version": "1.6.0",
   "description": "Verified standalone working anime providers for Morrow Anime 2",
   "scrapers": [
     {
+      "id": "animedekho",
+      "name": "AnimeDekho",
+      "description": "AnimeDekho standalone high-speed anime scraper",
+      "version": "1.6.0",
+      "author": "Morrow Team",
+      "supportedTypes": [
+        "anime",
+        "tv",
+        "movie"
+      ],
+      "filename": "providers/animedekho.js",
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "m3u8",
+        "mp4"
+      ],
+      "contentLanguage": [
+        "ja",
+        "en",
+        "hi"
+      ]
+    },
+    {
+      "id": "anime-nexus",
+      "name": "Anime Nexus",
+      "description": "Anime Nexus standalone high-speed anime scraper",
+      "version": "1.6.0",
+      "author": "Morrow Team",
+      "supportedTypes": [
+        "anime",
+        "tv",
+        "movie"
+      ],
+      "filename": "providers/anime-nexus.js",
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "m3u8",
+        "mp4"
+      ],
+      "contentLanguage": [
+        "ja",
+        "en",
+        "hi"
+      ]
+    },
+    {
+      "id": "lunarx",
+      "name": "LunarX",
+      "description": "LunarX standalone high-speed anime scraper",
+      "version": "1.6.0",
+      "author": "Morrow Team",
+      "supportedTypes": [
+        "anime",
+        "tv",
+        "movie"
+      ],
+      "filename": "providers/lunarx.js",
+      "enabled": true,
+      "hasSettings": false,
+      "formats": [
+        "m3u8",
+        "mp4"
+      ],
+      "contentLanguage": [
+        "ja",
+        "en",
+        "hi"
+      ]
+    },
+    {
       "id": "saltanime",
       "name": "SaltAnime",
-      "description": "SaltAnime multi-language scraper with Hindi, Tamil, Telugu, English Dub, and Japanese Sub",
-      "version": "1.4.0",
+      "description": "SaltAnime standalone high-speed anime scraper",
+      "version": "1.6.0",
       "author": "Morrow Team",
       "supportedTypes": [
         "anime",
@@ -24,9 +96,7 @@
       "contentLanguage": [
         "ja",
         "en",
-        "hi",
-        "ta",
-        "te"
+        "hi"
       ]
     }
   ]
