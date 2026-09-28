@@ -1,236 +1,102 @@
 {
-  "name": "Morrow Anime Providers 2",
-  "version": "1.2.0",
-  "description": "Verified standalone working providers for Morrow Anime Providers 2",
+  "name": "Morrow Anime 2",
+  "version": "1.3.0",
+  "description": "Verified standalone working anime providers for Morrow Anime 2",
   "scrapers": [
     {
       "id": "animedekho",
       "name": "AnimeDekho",
       "description": "AnimeDekho standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/animedekho.js",
+      "version": "1.3.0",
+      "author": "Morrow Team",
       "supportedTypes": [
-        "movie",
+        "anime",
         "tv",
-        "anime"
+        "movie"
       ],
+      "filename": "providers/animedekho.js",
       "enabled": true,
       "hasSettings": false,
       "formats": [
-        "mp4",
-        "m3u8"
+        "m3u8",
+        "mp4"
       ],
       "contentLanguage": [
+        "ja",
         "en",
-        "ja"
+        "hi"
       ]
     },
     {
       "id": "anime-nexus",
       "name": "Anime Nexus",
       "description": "Anime Nexus standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
+      "version": "1.3.0",
+      "author": "Morrow Team",
+      "supportedTypes": [
+        "anime",
+        "tv",
+        "movie"
+      ],
       "filename": "providers/anime-nexus.js",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
       "enabled": true,
       "hasSettings": false,
       "formats": [
-        "mp4",
-        "m3u8"
+        "m3u8",
+        "mp4"
       ],
       "contentLanguage": [
+        "ja",
         "en",
-        "ja"
-      ]
-    },
-    {
-      "id": "animetvplus",
-      "name": "animeTVplus",
-      "description": "animeTVplus standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/animetvplus.js",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "enabled": true,
-      "hasSettings": false,
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ]
-    },
-    {
-      "id": "animex",
-      "name": "AnimeX",
-      "description": "AnimeX standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/animex.js",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "enabled": true,
-      "hasSettings": false,
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ]
-    },
-    {
-      "id": "anistream",
-      "name": "Anistream",
-      "description": "Anistream standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/anistream.js",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "enabled": true,
-      "hasSettings": false,
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ]
-    },
-    {
-      "id": "enma",
-      "name": "Enma",
-      "description": "Enma standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/enma.js",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "enabled": true,
-      "hasSettings": false,
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ]
-    },
-    {
-      "id": "justanime",
-      "name": "JustAnime",
-      "description": "JustAnime standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/justanime.js",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "enabled": true,
-      "hasSettings": false,
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
-      ]
-    },
-    {
-      "id": "kaa",
-      "name": "Kaa",
-      "description": "Kaa standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/kaa.js",
-      "supportedTypes": [
-        "movie",
-        "tv",
-        "anime"
-      ],
-      "enabled": true,
-      "hasSettings": false,
-      "formats": [
-        "mp4",
-        "m3u8"
-      ],
-      "contentLanguage": [
-        "en",
-        "ja"
+        "hi"
       ]
     },
     {
       "id": "lunarx",
       "name": "LunarX",
       "description": "LunarX standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/lunarx.js",
+      "version": "1.3.0",
+      "author": "Morrow Team",
       "supportedTypes": [
-        "movie",
+        "anime",
         "tv",
-        "anime"
+        "movie"
       ],
+      "filename": "providers/lunarx.js",
       "enabled": true,
       "hasSettings": false,
       "formats": [
-        "mp4",
-        "m3u8"
+        "m3u8",
+        "mp4"
       ],
       "contentLanguage": [
+        "ja",
         "en",
-        "ja"
+        "hi"
       ]
     },
     {
       "id": "saltanime",
       "name": "SaltAnime",
       "description": "SaltAnime standalone high-speed anime scraper",
-      "version": "1.2.0",
-      "author": "Morrow",
-      "filename": "providers/saltanime.js",
+      "version": "1.3.0",
+      "author": "Morrow Team",
       "supportedTypes": [
-        "movie",
+        "anime",
         "tv",
-        "anime"
+        "movie"
       ],
+      "filename": "providers/saltanime.js",
       "enabled": true,
       "hasSettings": false,
       "formats": [
-        "mp4",
-        "m3u8"
+        "m3u8",
+        "mp4"
       ],
       "contentLanguage": [
+        "ja",
         "en",
-        "ja"
+        "hi"
       ]
     }
   ]

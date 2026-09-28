@@ -285,14 +285,28 @@ async function allServerStreams(animeId, episode, servers) {
       if (!url || seenUrls.has(key)) continue;
       seenUrls.add(key);
       streams.push({
-        name: `Requested Sites ${server.id} [${server.language}]`,
-        title: `${server.tip || "Anime stream"} ${server.language}`,
+        name: `Server ${String(server.id || 'Yuki').toUpperCase()} [${server.language}]`,
+        serverId: String(server.id || 'Yuki').toUpperCase(),
+        language: server.language,
+        tip: server.tip || "",
+        title: `⚡ ${quality(source)} | ${server.language === 'DUB' ? '🗣️ English Dub' : '💬 Japanese [Eng Sub]'} | 📺 ${server.tip || server.id}`,
         url,
         quality: quality(source),
         type: streamType(source),
-        headers: data.headers || {},
-        tracks: Array.isArray(data.tracks)
-          ? data.tracks.map((track) => ({ ...track, url: cleanTrack(track.url) })).filter((track) => track.url)
+        behaviorHints: {
+          notWebReady: true,
+          proxyHeaders: {
+            request: data.headers || source.headers || {
+              'Origin': 'https://megaplay.buzz',
+              'Referer': 'https://megaplay.buzz/'
+            }
+          }
+        },
+        subtitles: Array.isArray(data.tracks)
+          ? data.tracks.map((track) => ({ url: cleanTrack(track.url), language: track.lang || track.language || 'en', name: track.label || track.name || track.lang || 'English' })).filter((track) => track.url)
+          : [],
+        externalSubtitles: Array.isArray(data.tracks)
+          ? data.tracks.map((track) => ({ url: cleanTrack(track.url), language: track.lang || track.language || 'en', name: track.label || track.name || track.lang || 'English' })).filter((track) => track.url)
           : [],
         chapters: Array.isArray(data.chapters) ? data.chapters : [],
         provider: "requested-anime-sites"
