@@ -1,5 +1,3 @@
-# Morrow Anime 2 - Regional & Dub
+# Morrow Anime X2
 
-Verified standalone fast providers repository for Morrow and Nuvio.
-
-Total providers: 9
+The Anime X2 catalog is consolidated into [Morrow Anime X1](https://github.com/notzeoxalt2/morrowx1anime). Update Morrow and use the X1 repository. Existing X2 scripts are retained during the transition.
